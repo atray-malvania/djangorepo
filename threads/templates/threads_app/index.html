@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .comment {
+            margin-left: 20px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <h1 style="text-align: center;"> Threads Application</h1>
+        <h3 style="text-align: center;">Popular Threads</h3>
+        <a href='{% url "threads_app:register" %}'>Register</a>
+        <a href='{% url "threads_app:login" %}'>Login</a>
+    </div>
+
+    {% if user.is_authenticated %}
+    
+        {% for s in stories %}
+        
+            <div class="post">
+                <h2>{{ s.story_title }}</h2>
+                <p>{{ s.story_content }} </p>
+            </div>
+
+            {% for c in comments  %}
+                {% if c.story == s %}
+                    <div class="comment">
+                        <strong>{{ c.created_by }}</strong>
+                        <p>{{ c.comment }} </p>
+                    </div>        
+                {% endif %}        
+            {% endfor %}
+        {% endfor %}
+    
+    {% endif %}
+
+    
+    
+
+   
+</body>
+</html>
